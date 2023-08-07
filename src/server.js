@@ -5,10 +5,13 @@ const port = 3333
 const routes = require("./routes/index.js")
 const AppError = require("./utils/AppError.js")
 const migrationsRun = require("./database/sqlite/migrations/index.js")
+const uploadConfig = require("./configs/upload.js")
 
 migrationsRun()
 
 app.use(express.json())
+
+app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER))
 
 app.use(routes)
 
